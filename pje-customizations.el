@@ -174,15 +174,6 @@ by using nxml's indentation rules."
 
 ;;
 
-(buffer-name (get-buffer "*scratch*"))
-
-(defun kill-buffers-like (pattern)
-  (mapcar (lambda (buffer)
-            (if (string-prefix-p "*P4 Output" buffer-name)
-                (kill-buffer buffer)))
-          (buffer-list)))
-
-
 (defun kill-buffers-like (pattern)
   (dolist (buffer (buffer-list))
     (if (string-match pattern (buffer-name buffer))
