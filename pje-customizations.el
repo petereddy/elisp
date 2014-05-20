@@ -213,14 +213,14 @@ by using nxml's indentation rules."
 ;; Note that the functions switch-to-buffer-other-window and
 ;; switch-to-buffer-other-frame are not currently similarlly advised:
 (defadvice switch-to-buffer (before existing-buffer 
-                                        activate compile)
+				    activate compile)
   "When interactive, switch to existing buffers only,
 unless given a prefix argument. Prevents unintentionally
 creating buffers."
   (interactive
    (list (read-buffer "Switch to buffer:"
-                            (other-buffer)
-                                  (null current-prefix-arg)))))
+		      (other-buffer)
+		      (null current-prefix-arg)))))
 
 ;;
 ;; Unscroll support
