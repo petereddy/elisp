@@ -29,6 +29,23 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;;
+;; Desktop mode settings, some from http://www.emacswiki.org/emacs/DeskTop
+;;
+
+(require 'desktop)
+;;(setq desktop-dirname "~/.emacs.d/desktop-saves/")
+(desktop-save-mode 1)
+
+(defun custom-desktop-save ()
+  (interactive)
+  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+  (if (eq (desktop-owner) (emacs-pid))
+      (desktop-save desktop-dirname)))
+
+;; Save desktop on idle
+(add-hook 'auto-save-hook 'my-desktop-save)
+
+;;
 ;; Lisp/Slime
 ;;
 
