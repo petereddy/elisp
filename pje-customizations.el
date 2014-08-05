@@ -37,6 +37,16 @@
         (sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))
 
 ;;
+;; ispell/aspell
+;;
+
+;; The Following is set in init.el's since the program location varies
+;; by host
+;;(setq ispell-program-name "aspell")
+
+(setq ispell-list-command "list")
+
+;;
 ;; Groovy
 ;;
 
@@ -143,6 +153,11 @@ by using nxml's indentation rules."
       (backward-char) (insert "\n"))
     (indent-region begin end))
   (message "Ah, much better!"))
+
+(defun sort-lines-nocase ()
+  (interactive)
+  (let ((sort-fold-case t))
+    (call-interactively 'sort-lines)))
 
 (defun func-region (start end func)
   "run a function over the region between START and END in current buffer."
