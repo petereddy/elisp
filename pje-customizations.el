@@ -25,6 +25,15 @@
   (ispell-change-dictionary "american")
   (flyspell-prog-mode))
 
+;; Cut the word currently at point
+(defun cut-current-word ()
+  (interactive)
+  (forward-word)
+  (let ((end (point)))
+    (backward-word)
+    (kill-ring-save (point) end)
+    (delete-region (point) end)))
+
 ; Don't open a new, little frame for ediff 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
@@ -112,6 +121,8 @@
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+
+;(global-set-key (kbd "C-M-x") 'cut-current-word)
 
 ;; Show matching parens
 (show-paren-mode)
@@ -476,19 +487,21 @@ version control if file is under version control."
 
 ;; Java mode
 
-(defun my-java-mode-hook ()
-  (setq c-basic-offset 2
-        tab-width 2
-        indent-tabs-mode nil
-        arglist-cont-nonempty 2 ; Indent wrapped argument lists by 2
-        substatement-open 0)    ; Don't indent opening braces on their own line
-  (local-set-key (kbd "RET") 'newline-and-indent)
-  ;; Treat Java 1.5 @-style annotations as comments.
-  (setq c-comment-start-regexp "(@|/(/|[*][*]?))")
-  (modify-syntax-entry ?@ "< b" java-mode-syntax-table))
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq c-basic-offset 2
+                  tab-width 2
+                  indent-tabs-mode nil
+                  arglist-cont 2
+                  arglist-cont-nonempty 2 ; Indent wrapped argument lists by 2
+                  substatement-open 0)    ; Don't indent opening braces on their own line
+            (local-set-key (kbd "RET") 'newline-and-indent)
+            ;; Treat Java 1.5 @-style annotations as comments.
+            (setq c-comment-start-regexp "(@|/(/|[*][*]?))")
+            (modify-syntax-entry ?@ "< b" java-mode-syntax-table)))
 
-(add-hook 'java-mode-hook 'my-java-mode-hook)
-(add-hook 'java-mode-hook 'subword-mode)
+;(add-hook 'java-mode-hook 'my-java-mode-hook)
+;(add-hook 'java-mode-hook 'subword-mode)
 
 ;; Lisp Mode
 
