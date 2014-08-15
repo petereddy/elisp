@@ -52,7 +52,7 @@
       (desktop-save desktop-dirname)))
 
 ;; Save desktop on idle
-(add-hook 'auto-save-hook 'my-desktop-save)
+(add-hook 'auto-save-hook 'custom-desktop-save)
 
 ;;
 ;; Lisp/Slime
@@ -481,6 +481,7 @@ version control if file is under version control."
 (add-hook 'java-mode-hook
           (lambda ()
             (setq c-basic-offset 2
+                  arglist-intro 2
                   tab-width 2
                   indent-tabs-mode nil
                   arglist-cont 2
