@@ -19,6 +19,9 @@
 ;; Save/restore desktop when exiting/starting emacs
 (desktop-save-mode 1)
 
+;; Use transparent titlebar
+(when (eq system-type 'darwin) (ns-auto-titlebar-mode))
+
 ;; Use GNU ls on macOS
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired t
@@ -56,7 +59,10 @@
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package magit
+  :ensure t
   :commands (magit-status magit-get-current-branch)
+  :bind
+  ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
